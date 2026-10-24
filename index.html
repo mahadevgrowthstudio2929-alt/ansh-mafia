@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#080808">
+
+<title>Ansh Mafia | Cricket Analysis</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --gold: #FFD36A;
+    --gold2: #B8862B;
+    --dark: #080808;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: var(--dark);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+}
+
+/* BACKGROUND */
+
+.bg {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 50% 30%, #48300e55, transparent 55%),
+        radial-gradient(ellipse at 50% 100%, #4a310c35, transparent 60%),
+        #080808;
+    z-index: -3;
+}
+
+.grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(#dba63c09 1px, transparent 1px),
+        linear-gradient(90deg, #dba63c09 1px, transparent 1px);
+    background-size: 38px 38px;
+    mask-image: linear-gradient(to bottom, transparent, black, transparent);
+    z-index: -2;
+}
+
+/* FLOATING PARTICLES */
+
+.particles {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    bottom: -20px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    15% { opacity: .8; }
+    85% { opacity: .6; }
+    100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* MAIN CONTAINER */
+
+.container {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 480px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 22px;
+    text-align: center;
+    position: relative;
+}
+
+/* TOP BADGE */
+
+.top-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #c99a4355;
+    background: #d8a5360d;
+    padding: 9px 16px;
+    border-radius: 50px;
+    color: var(--gold);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4cff91;
+    box-shadow: 0 0 10px #4cff91;
+    animation: blink 1.4s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: .25; }
+}
+
+/* LOGO */
+
+.logo-area {
+    width: 142px;
+    height: 142px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.logo-area::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px dashed #e6ae43;
+    animation: rotate 22s linear infinite;
+}
+
+.logo-area::after {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border-radius: 50%;
+    border: 1px solid #c7933766;
+    box-shadow: 0 0 35px #d99c2820;
+}
+
+.logo {
+    width: 105px;
+    height: 105px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--gold2);
+    box-shadow:
+        0 0 25px #dba52e40,
+        inset 0 0 15px #dba52e30;
+    z-index: 2;
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+/* BRAND */
+
+.pre-title {
+    color: #c7a465;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 9px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(29px, 8.2vw, 42px);
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.2;
+
+    background: linear-gradient(
+        180deg,
+        #fff5c9 0%,
+        #ffd46b 35%,
+        #b77c21 75%,
+        #ffe09a 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    filter: drop-shadow(0 3px 15px #dba43a35);
+}
+
+.brand-line {
+    height: 2px;
+    width: 65px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 17px auto;
+}
+
+.description {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #bcb8ad;
+    font-weight: 500;
+    max-width: 300px;
+}
+
+.description strong {
+    color: #f1d18d;
+    font-weight: 700;
+}
+
+/* FEATURES */
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 23px;
+    margin-bottom: 25px;
+}
+
+.feature {
+    border: 1px solid #d5a64b35;
+    background: linear-gradient(145deg,#32240e55,#111111);
+    padding: 9px 11px;
+    border-radius: 7px;
+    font-size: 9px;
+    color: #e5cb92;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+/* CTA */
+
+.cta-wrap {
+    width: 100%;
+    position: relative;
+}
+
+.cta-glow {
+    position: absolute;
+    inset: 8px 15px;
+    background: #ffc44c;
+    filter: blur(24px);
+    opacity: .3;
+    animation: glow 2s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes glow {
+    to { opacity: .6; }
+}
+
+.join-btn {
+    position: relative;
+    width: 100%;
+    min-height: 58px;
+    border: 1px solid #ffe2a0;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        110deg,
+        #a96d19,
+        #ffdf88 35%,
+        #e5aa40 65%,
+        #a96d19
+    );
+
+    background-size: 200% auto;
+    color: #181000;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .3px;
+
+    cursor: pointer;
+    box-shadow:
+        inset 0 1px 2px #ffffff80,
+        0 5px 25px #dca33930;
+
+    animation: shine 4s linear infinite;
+    transition: transform .2s;
+}
+
+.join-btn:active {
+    transform: scale(.97);
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+.cta-note {
+    margin-top: 13px;
+    color: #8d826e;
+    font-size: 9px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* BOTTOM */
+
+.bottom {
+    position: absolute;
+    bottom: 15px;
+    color: #665c4b;
+    font-size: 8px;
+    letter-spacing: .5px;
+    width: 90%;
+    line-height: 1.6;
+}
+
+/* SMALL SCREENS */
+
+@media(max-height: 700px) {
+
+    .top-badge {
+        margin-bottom: 13px;
+    }
+
+    .logo-area {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 14px;
+    }
+
+    .logo {
+        width: 82px;
+        height: 82px;
+    }
+
+    .brand-line {
+        margin: 11px auto;
+    }
+
+    .features {
+        margin-top: 15px;
+        margin-bottom: 17px;
+    }
+
+    .bottom {
+        bottom: 7px;
+    }
+}
+
+@media(max-height: 580px) {
+
+    .container {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .top-badge {
+        margin-bottom: 8px;
+        padding: 6px 12px;
+    }
+
+    .logo-area {
+        width: 76px;
+        height: 76px;
+        margin-bottom: 8px;
+    }
+
+    .logo {
+        width: 58px;
+        height: 58px;
+    }
+
+    .pre-title {
+        margin-bottom: 4px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .brand-line {
+        margin: 7px auto;
+    }
+
+    .description {
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .features {
+        margin: 10px 0;
+    }
+
+    .feature {
+        padding: 6px 8px;
+    }
+
+    .join-btn {
+        min-height: 45px;
+    }
+
+    .cta-note {
+        margin-top: 6px;
+    }
+
+    .bottom {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="grid"></div>
+<div class="particles" id="particles"></div>
+
+<main class="container">
+
+    <!-- LIVE BADGE -->
+
+    <div class="top-badge">
+        <span class="live-dot"></span>
+        CRICKET ANALYSIS HUB
+    </div>
+
+    <!-- CHANNEL LOGO -->
+
+    <div class="logo-area">
+        <img src="logo.png" alt="Ansh Mafia" class="logo">
+    </div>
+
+    <!-- BRAND -->
+
+    <div class="pre-title">
+        WELCOME TO THE WORLD OF
+    </div>
+
+    <h1>ANSH MAFIA</h1>
+
+    <div class="brand-line"></div>
+
+    <p class="description">
+        Where Cricket Meets Strategy.<br>
+        Get <strong>Match Insights, Trading Discussions</strong>
+        & Cricket Analysis.
+    </p>
+
+    <!-- FEATURES -->
+
+    <div class="features">
+
+        <div class="feature">
+            ✦ Match Insights
+        </div>
+
+        <div class="feature">
+            ✦ Cricket Analysis
+        </div>
+
+        <div class="feature">
+            ✦ Trading Updates
+        </div>
+
+    </div>
+
+    <!-- MAIN JOIN BUTTON -->
+
+    <div class="cta-wrap">
+
+        <div class="cta-glow"></div>
+
+        <button
+            class="join-btn"
+            type="button"
+            onclick="window.open('https://t.me/+oxvDDH4qfZtmODFl','_blank')">
+            UNLOCK ACCESS — JOIN NOW
+        </button>
+
+    </div>
+
+    <div class="cta-note">
+        ✦ ENTER THE ANSH MAFIA COMMUNITY ✦
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="bottom">
+        Independent Cricket Analysis Community.
+        All discussions are informational. No guaranteed outcomes.
+    </div>
+
+</main>
+
+<script>
+
+/* FLOATING GOLD PARTICLES */
+
+const particleContainer = document.getElementById('particles');
+
+for (let i = 0; i < 24; i++) {
+
+    const particle = document.createElement('div');
+
+    particle.className = 'particle';
+
+    particle.style.left = Math.random() * 100 + '%';
+
+    particle.style.animationDuration =
+        (7 + Math.random() * 9) + 's';
+
+    particle.style.animationDelay =
+        -(Math.random() * 15) + 's';
+
+    particle.style.opacity = Math.random() * .7;
+
+    const size = 1 + Math.random() * 2;
+
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+
+    particleContainer.appendChild(particle);
+
+}
+
+</script>
+
+</body>
+</html>
